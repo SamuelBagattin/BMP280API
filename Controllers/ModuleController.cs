@@ -25,11 +25,12 @@ namespace BMP280API.Controllers
 
         // GET: api/Module
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Module>>> GetModules(int? pageIndex, int? pageSize)
+        public async Task<ActionResult<CustomResponsePaged<PaginatedList<Module>>>> GetModules(int? pageIndex, int? pageSize)
         {
             var pageIndexResult = pageIndex ?? 1;
             var pageSizeResult = pageSize ?? 20;
-            return await _moduleService.GetAsync(pageIndexResult, pageSizeResult);
+            return CustomResponsePaged<Module>.BuildFromPaginatedList(
+                await _moduleService.GetAsync(pageIndexResult, pageSizeResult));
         }
 
         // GET: api/Module/5
