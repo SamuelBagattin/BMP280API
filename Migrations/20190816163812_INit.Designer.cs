@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BMP280API.Migrations
 {
     [DbContext(typeof(ApiContext))]
-    [Migration("20190813120316_initf")]
-    partial class initf
+    [Migration("20190816163812_INit")]
+    partial class INit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

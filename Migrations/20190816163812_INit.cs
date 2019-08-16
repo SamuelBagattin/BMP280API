@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BMP280API.Migrations
 {
-    public partial class initf : Migration
+    public partial class INit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
