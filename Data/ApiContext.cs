@@ -1,3 +1,4 @@
+using System;
 using BMP280API.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,6 +22,11 @@ namespace BMP280API.Data
                 .HasMany(e => e.ModuleDatas)
                 .WithOne()
                 .HasForeignKey(e => e.ModuleGuid);
+
+            modelBuilder.Entity<ModuleData>()
+                .Property(e => e.DateTime)
+                .HasDefaultValue(DateTime.Now)
+                .HasDefaultValueSql("NOW()");
         }
     }
 }
