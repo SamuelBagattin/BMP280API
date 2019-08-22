@@ -55,6 +55,7 @@ namespace BMP280API.Services
             }
 
             _context.Modules.Remove(module);
+            await _context.SaveChangesAsync();
             return module;
         }
 

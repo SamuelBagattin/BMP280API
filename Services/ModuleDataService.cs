@@ -56,8 +56,9 @@ namespace BMP280API.Services
 
         public async Task DeleteAsync(Guid id)
         {
-            var ModuleData = await _context.ModuleDatas.FindAsync(id);
-            _context.ModuleDatas.Remove(ModuleData);
+            var moduleData = await _context.ModuleDatas.FindAsync(id);
+            _context.ModuleDatas.Remove(moduleData);
+            await _context.SaveChangesAsync();
         }
     }
 }
