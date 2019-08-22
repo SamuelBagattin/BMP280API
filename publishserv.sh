@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 cd ~/dev/BMP280API/ &&
 git pull --rebase &&
 dotnet restore &&
