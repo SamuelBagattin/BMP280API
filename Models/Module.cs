@@ -24,7 +24,7 @@ namespace BMP280API.Models
         [NotMapped]
         public ModuleData LastData { get; set; }
 
-        public bool IsActive => (DateTime.Now - LastData.DateTime).TotalHours < 1;
+        public bool IsActive => LastData != null && (DateTime.Now - LastData.DateTime).TotalHours < 1;
 
         [NotMapped]
         public string CompleteAddress => $"{Address}, {City}, {Country}";
