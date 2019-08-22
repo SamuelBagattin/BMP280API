@@ -21,10 +21,11 @@ namespace BMP280API
 {
     public class Startup
     {
+
         public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
-            _env = env;
+            _env = env; 
         }
 
         public IConfiguration Configuration { get; }
@@ -33,6 +34,7 @@ namespace BMP280API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddEntityFrameworkNpgsql();
 
             services.AddDbContext<ApiContext>(e => e.UseNpgsql(Configuration.GetConnectionString("Db")));
@@ -40,22 +42,23 @@ namespace BMP280API
 
             services.AddTransient<ModuleService>();
             services.AddTransient<ModuleDataService>();
-            
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
                     Title = "BMP280API",
-                    Description = "BMP280 ASP.NET Core Web API",
+                    Description = "BMP 280 ASP.NET Core Web API",
                 });
             });
         }
 
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseSwagger();    
+            app.UseSwagger();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -65,16 +68,19 @@ namespace BMP280API
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-            });
-            
+
+            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"); });
+
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
-            app.UseCors();
+            app.UseCors(builder =>
+            {
+                builder.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+            });
             app.UseMvc();
         }
     }

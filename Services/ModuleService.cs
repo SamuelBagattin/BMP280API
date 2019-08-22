@@ -12,7 +12,6 @@ namespace BMP280API.Services
 {
     public class ModuleService
     {
-
         private readonly ApiContext _context;
 
         public ModuleService(ApiContext context)
@@ -23,10 +22,10 @@ namespace BMP280API.Services
         public Task<PaginatedList<Module>> GetAsync(int pageIndex, int pageSize)
         {
             return PaginatedList<Module>.CreateAsync
-                (
-                    _context.Modules.AsNoTracking(),
-                    pageIndex,
-                    pageSize
+            (
+                _context.Modules.Include(e => e.ModuleDatas).AsNoTracking(),
+                pageIndex,
+                pageSize
             );
         }
 
@@ -54,6 +53,7 @@ namespace BMP280API.Services
             {
                 return null;
             }
+
             _context.Modules.Remove(module);
             return module;
         }

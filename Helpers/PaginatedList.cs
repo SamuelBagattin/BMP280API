@@ -15,9 +15,11 @@ namespace BMP280API.Helpers
         {
             PageIndex = pageIndex;
             TotalPages = (int)Math.Ceiling(count / (double)pageSize);
-
+            TotalCount = count;
             this.AddRange(items);
         }
+        
+        public int TotalCount { get; set; }
 
         public bool HasPreviousPage => (PageIndex > 1);
 

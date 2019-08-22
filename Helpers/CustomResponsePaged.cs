@@ -11,6 +11,8 @@ namespace BMP280API.Helpers
 
         public bool HasNextPage { get; set; }
         
+        public int TotalCount { get; set; }
+        
         public T Result { get; set; }
 
         public static CustomResponsePaged<PaginatedList<T>> BuildFromPaginatedList(PaginatedList<T> paginatedList)
@@ -21,7 +23,8 @@ namespace BMP280API.Helpers
                 PageIndex = paginatedList.PageIndex,
                 TotalPages = paginatedList.TotalPages,
                 HasNextPage = paginatedList.HasNextPage,
-                HasPreviousPage = paginatedList.HasPreviousPage
+                HasPreviousPage = paginatedList.HasPreviousPage,
+                TotalCount = paginatedList.TotalCount
             };
         }
     }
