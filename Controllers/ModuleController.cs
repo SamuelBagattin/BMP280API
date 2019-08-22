@@ -29,8 +29,11 @@ namespace BMP280API.Controllers
         {
             var pageIndexResult = pageIndex ?? 1;
             var pageSizeResult = pageSize ?? 20;
+            var modules = await _moduleService.GetAsync(pageIndexResult, pageSizeResult);
+            modules.ForEach(e => e.LastData = e.ModuleDatas.OrderByDescending(r => r.DateTime).FirstOrDefault());
             return CustomResponsePaged<Module>.BuildFromPaginatedList(
-                await _moduleService.GetAsync(pageIndexResult, pageSizeResult));
+                modules
+            );
         }
 
         // GET: api/Module/5

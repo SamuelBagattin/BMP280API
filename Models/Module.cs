@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace BMP280API.Models
@@ -19,6 +21,11 @@ namespace BMP280API.Models
         
         public string Address { get; set; }
         
+        [NotMapped]
+        public ModuleData LastData { get; set; }
+
+        public bool IsActive => (DateTime.Now - LastData.DateTime).TotalHours < 1;
+
         [NotMapped]
         public string CompleteAddress => $"{Address}, {City}, {Country}";
 

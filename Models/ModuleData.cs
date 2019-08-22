@@ -21,5 +21,7 @@ namespace BMP280API.Models
         public float Voltage { get; set; }
         
         public Guid ModuleGuid { get; set; }
+        
+        public string PositionMode { get; set; }
     }
 }

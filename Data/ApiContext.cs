@@ -25,7 +25,6 @@ namespace BMP280API.Data
 
             modelBuilder.Entity<ModuleData>()
                 .Property(e => e.DateTime)
-                .HasDefaultValue(DateTime.Now)
                 .HasDefaultValueSql("NOW()");
         }
     }

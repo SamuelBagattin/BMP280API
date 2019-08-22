@@ -28,14 +28,17 @@ namespace BMP280API.Services
             );
         }
 
-        public Task<ModuleData> GetAsync(Guid guid, int pageIndex, int pageSize)
+        public Task<ModuleData> GetAsync(Guid guid)
         {
             return _context.ModuleDatas.FindAsync(guid);
         }
 
         public Task<PaginatedList<ModuleData>> GetDataFromModule(Guid moduleGuid, int pageIndex, int PageSize)
         {
-            return PaginatedList<ModuleData>.CreateAsync(_context.ModuleDatas.Where(e => e.ModuleGuid == moduleGuid),
+            return PaginatedList<ModuleData>.CreateAsync(
+                _context.ModuleDatas
+                    .Where(e => e.ModuleGuid == moduleGuid)
+                    .OrderByDescending(e => e.DateTime),
                 pageIndex, PageSize);
         }
 
