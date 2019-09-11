@@ -16,6 +16,8 @@ namespace BMP280API.Models
         
         public float Pression { get; set; }
         
+        public float Hygrometry { get; set; }
+        
         public DateTime DateTime { get; set; }
         
         public float Voltage { get; set; }
